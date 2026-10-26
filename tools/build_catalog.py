@@ -86,7 +86,7 @@ def describe(directory: Path) -> dict[str, Any] | None:
         "version": version,
         "description": description,
         "entry": entry,
-        "url": f"/cartridges/{directory.name}/{entry}",
+        "url": f"cartridges/{directory.name}/{entry}",
         "tags": [str(tag) for tag in tags],
     }
 

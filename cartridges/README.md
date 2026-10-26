@@ -56,7 +56,7 @@ A cartridge is a web page with one extra thing: the `R36S` object, which
 gives you the buttons and the sticks.
 
 ```html
-<script src="/shared/r36s-cartridge-sdk.js"></script>
+<script src="../../shared/r36s-cartridge-sdk.js"></script>
 ```
 
 The API is documented in [../docs/CARTRIDGE_API.md](../docs/CARTRIDGE_API.md).

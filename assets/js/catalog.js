@@ -5,7 +5,7 @@
  * dropped into `cartridges/` appears in the menu straight away.
  */
 
-const CATALOG_URLS = [ "/cartridges/catalog.json", "/catalog.json" ]
+const CATALOG_URLS = [ "cartridges/catalog.json", "/cartridges/catalog.json" ]
 
 function normalize( cartridge ) {
   return {

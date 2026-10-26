@@ -8,7 +8,7 @@ Everything here is available on one global object, `R36S`. Load the SDK and
 start using it:
 
 ```html
-<script src="/shared/r36s-cartridge-sdk.js"></script>
+<script src="../../shared/r36s-cartridge-sdk.js"></script>
 <script src="game.js"></script>
 ```
 

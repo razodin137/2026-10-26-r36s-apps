@@ -6,7 +6,7 @@
  *
  * Load it from a cartridge like this:
  *
- *   <script src="/shared/r36s-cartridge-sdk.js"></script>
+ *   <script src="../../shared/r36s-cartridge-sdk.js"></script>
  *   <script src="game.js"></script>
  *
  * Then drive the console from game.js:

@@ -28,7 +28,7 @@ the size of the console's screen, and nothing else.
   <body>
     <canvas id="screen" width="320" height="240"></canvas>
 
-    <script src="/shared/r36s-cartridge-sdk.js"></script>
+    <script src="../../shared/r36s-cartridge-sdk.js"></script>
     <script src="game.js"></script>
   </body>
 </html>
@@ -62,7 +62,7 @@ keep the canvas filling it.
 The SDK is one file, served from the root of the site.
 
 ```html
-<script src="/shared/r36s-cartridge-sdk.js"></script>
+<script src="../../shared/r36s-cartridge-sdk.js"></script>
 ```
 
 It puts a `R36S` object on the window. That object is the console: the

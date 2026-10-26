@@ -44,7 +44,7 @@ shortest useful cartridge looks like this:
   <body>
     <canvas id="screen" width="320" height="240"></canvas>
 
-    <script src="/shared/r36s-cartridge-sdk.js"></script>
+    <script src="../../shared/r36s-cartridge-sdk.js"></script>
     <script src="game.js"></script>
   </body>
 </html>
