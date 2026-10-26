@@ -1,0 +1,117 @@
+/* The cartridge menu.
+ *
+ * The menu is firmware, so it draws inside the console's own 320x240 screen
+ * and uses the same pixels a cartridge would.
+ */
+
+.menu {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+
+.menu__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 5px 8px 4px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+.menu__brand {
+  color: #7ee787;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.menu__count {
+  color: #6e7681;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.menu__list {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 2px 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.menu__list::-webkit-scrollbar {
+  display: none;
+}
+
+.menu__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  height: 26px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.menu__item--selected {
+  background: #1f6feb;
+  color: #fff;
+}
+
+.menu__title {
+  overflow: hidden;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu__meta {
+  color: #6e7681;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.menu__item--selected .menu__meta {
+  color: #c9d1d9;
+}
+
+.menu__empty {
+  padding: 12px 8px;
+  color: #6e7681;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.menu__footer {
+  padding: 5px 8px 6px;
+  background: #161b22;
+  border-top: 1px solid #30363d;
+}
+
+.menu__description {
+  min-height: 22px;
+  color: #8b949e;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.menu__hint {
+  margin-top: 3px;
+  color: #6e7681;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+
+.menu--empty .menu__footer {
+  display: none;
+}

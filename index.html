@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R36S — an emulated handheld</title>
+    <meta name="description" content="An emulated R36S handheld. Drop a folder of HTML into cartridges/ and it becomes a game.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/device.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <h1 class="app__title">R36S</h1>
+        <p class="app__tagline">An emulated handheld, and a place to put the games that run on it.</p>
+
+        <div class="app__actions">
+          <button class="button" type="button" data-flip aria-pressed="false">Turn over</button>
+          <button class="button" type="button" data-power>Power</button>
+          <button class="button" type="button" data-menu>Menu</button>
+        </div>
+      </header>
+
+      <main class="app__body">
+        <div class="app__stage">
+          <div class="device">
+            <div class="device__case">
+              <div class="device__face device__face--front">
+                <div class="device__edge device__edge--top">
+                  <button class="device__key" type="button" data-button="l1">L1</button>
+                  <button class="device__key device__key--power" type="button" aria-label="Power" data-power>⏻</button>
+                  <button class="device__key" type="button" data-button="r1">R1</button>
+                </div>
+
+                <div class="device__screen" data-screen>
+                  <div class="device__surface" data-screen-surface data-view="menu"></div>
+                </div>
+
+                <div class="dpad">
+                  <button class="dpad__arm dpad__arm--up" type="button" data-button="up" aria-label="Up">
+                    <span class="dpad__arrow">▲</span>
+                  </button>
+                  <button class="dpad__arm dpad__arm--left" type="button" data-button="left" aria-label="Left">
+                    <span class="dpad__arrow">◀</span>
+                  </button>
+                  <button class="dpad__arm dpad__arm--right" type="button" data-button="right" aria-label="Right">
+                    <span class="dpad__arrow">▶</span>
+                  </button>
+                  <button class="dpad__arm dpad__arm--down" type="button" data-button="down" aria-label="Down">
+                    <span class="dpad__arrow">▼</span>
+                  </button>
+                  <span class="dpad__hub" aria-hidden="true"></span>
+                </div>
+
+                <div class="face-buttons">
+                  <button class="face-button face-button--x" type="button" data-button="x" aria-label="X">X</button>
+                  <button class="face-button face-button--y" type="button" data-button="y" aria-label="Y">Y</button>
+                  <button class="face-button face-button--a" type="button" data-button="a" aria-label="A">A</button>
+                  <button class="face-button face-button--b" type="button" data-button="b" aria-label="B">B</button>
+                </div>
+
+                <div class="stick stick--left" data-stick="left">
+                  <span class="stick__well"></span>
+                  <span class="stick__cap"></span>
+                </div>
+
+                <div class="stick stick--right" data-stick="right">
+                  <span class="stick__well"></span>
+                  <span class="stick__cap"></span>
+                </div>
+
+                <div class="menu-buttons">
+                  <button class="menu-button" type="button" data-button="select">SELECT</button>
+                  <button class="menu-button" type="button" data-button="start">START</button>
+                </div>
+
+                <span class="device__brand" aria-hidden="true">R36S</span>
+              </div>
+
+              <div class="device__face device__face--back">
+                <div class="device__edge device__edge--top">
+                  <span class="device__key device__key--plain" aria-hidden="true"></span>
+                </div>
+
+                <div class="trigger trigger--l2" data-button="l2">
+                  <span class="trigger__label">L2</span>
+                </div>
+
+                <div class="trigger trigger--r2" data-button="r2">
+                  <span class="trigger__label">R2</span>
+                </div>
+
+                <div class="battery-door">
+                  <span class="battery-door__label">OPEN</span>
+                </div>
+
+                <p class="device__label">
+                  R36S<br>
+                  EMULATED SHELL<br>
+                  MODEL R36S-EMU
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="status" data-status role="status"></p>
+        </div>
+
+        <aside class="app__panel">
+          <section class="panel-section">
+            <h2 class="panel-section__title">Now playing</h2>
+            <p class="panel-section__body now-playing" data-now-playing>Menu</p>
+          </section>
+
+          <section class="panel-section">
+            <h2 class="panel-section__title">Controls</h2>
+            <dl class="key-list">
+              <dt>D-pad</dt>
+              <dd><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></dd>
+              <dt>A B X Y</dt>
+              <dd><kbd>X</kbd> <kbd>Z</kbd> <kbd>V</kbd> <kbd>C</kbd></dd>
+              <dt>Left stick</dt>
+              <dd><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></dd>
+              <dt>Right stick</dt>
+              <dd><kbd>I</kbd> <kbd>J</kbd> <kbd>K</kbd> <kbd>L</kbd></dd>
+              <dt>Start / Select</dt>
+              <dd><kbd>Enter</kbd> <kbd>Shift</kbd></dd>
+              <dt>L1 / R1</dt>
+              <dd><kbd>Q</kbd> <kbd>E</kbd></dd>
+              <dt>L2 / R2</dt>
+              <dd><kbd>1</kbd> <kbd>3</kbd></dd>
+              <dt>Menu</dt>
+              <dd><kbd>Esc</kbd></dd>
+              <dt>Turn over</dt>
+              <dd><kbd>F</kbd></dd>
+            </dl>
+          </section>
+
+          <section class="panel-section">
+            <h2 class="panel-section__title">Cartridges</h2>
+            <p class="panel-section__body">
+              Put a folder of HTML in <code>cartridges/</code> and it appears in
+              the menu on the screen. The API is documented in
+              <code>docs/CARTRIDGE_API.md</code>.
+            </p>
+          </section>
+        </aside>
+      </main>
+
+      <footer class="app__footer">
+        Built to the
+        <a href="https://github.com/basecamp/house-style">Basecamp house style</a>.
+      </footer>
+    </div>
+
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

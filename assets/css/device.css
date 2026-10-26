@@ -1,0 +1,477 @@
+/* The console.
+ *
+ * The case is drawn with percentages, so the whole device scales with the
+ * page. Every control has a position variable, which makes the layout
+ * readable in one place and easy to adjust.
+ */
+
+.device {
+  --case-width: min(100%, 880px);
+  --screen-left: 30.5%;
+  --screen-top: 8%;
+  --screen-width: 39%;
+  --screen-height: 51.5%;
+  --dpad-left: 4.5%;
+  --dpad-top: 16.4%;
+  --dpad-size: 19%;
+  --face-left: 75.5%;
+  --face-top: 15.6%;
+  --face-size: 21%;
+  --stick-size: 17%;
+  --stick-left-left: 5.5%;
+  --stick-right-left: 77.5%;
+  --stick-top: 59%;
+  --shell: #2b2e35;
+  --shell-dark: #1b1e23;
+  --shell-light: #43474f;
+
+  width: var(--case-width);
+  perspective: 1600px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.device__case {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 148 / 84;
+  transform-style: preserve-3d;
+  border-radius: 4.5% / 8%;
+  background:
+    linear-gradient(180deg, var(--shell-light) 0%, var(--shell) 12%, var(--shell-dark) 96%);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.07) inset,
+    0 -3px 8px rgba(0, 0, 0, 0.55) inset,
+    0 26px 50px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 520ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.device.is-flipped .device__case {
+  transform: rotateY(180deg);
+}
+
+.device__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.device__face--back {
+  transform: rotateY(180deg);
+}
+
+.device__face--front::after {
+  content: "";
+  position: absolute;
+  left: 71.5%;
+  top: 11%;
+  width: 0.9%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ff4d4d;
+  box-shadow: 0 0 6px 1px rgba(255, 77, 77, 0.7);
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+
+.device.is-off .device__face--front::after {
+  background: #4a1d20;
+  box-shadow: none;
+}
+
+.device.is-off .device__surface {
+  opacity: 0;
+}
+
+/* The top edge: shoulders, power, and the volume rocker. */
+
+.device__edge {
+  position: absolute;
+  top: -1.2%;
+  left: 8%;
+  right: 8%;
+  height: 4%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4%;
+}
+
+.device__key {
+  min-width: 7%;
+  height: 100%;
+  padding: 0;
+  border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(180deg, #4a4e57, #2a2d34);
+  color: #9aa1ac;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  line-height: 1;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+.device__key--power {
+  color: #b9c0cb;
+  font-size: 8px;
+}
+
+.device__key--plain {
+  visibility: hidden;
+}
+
+.device__key.is-pressed {
+  background: linear-gradient(180deg, #3a3e46, #22252b);
+  color: var(--accent);
+}
+
+/* The screen. */
+
+.device__screen {
+  position: absolute;
+  left: var(--screen-left);
+  top: var(--screen-top);
+  width: var(--screen-width);
+  height: var(--screen-height);
+  overflow: hidden;
+  border-radius: 3px;
+  background: #05070a;
+  box-shadow:
+    0 0 0 4px #16191e,
+    0 0 0 5px #0a0c0f,
+    0 0 0 6px rgba(255, 255, 255, 0.05),
+    0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.device__screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 42%);
+}
+
+.device__surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 240px;
+  transform: scale(var(--screen-scale, 1));
+  transform-origin: top left;
+}
+
+.device__surface[data-view="menu"] .screen__frame {
+  display: none;
+}
+
+.device__surface[data-view="game"] .menu {
+  display: none;
+}
+
+.screen__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 240px;
+  border: 0;
+  display: block;
+  background: #000;
+  image-rendering: pixelated;
+}
+
+/* The D-pad. */
+
+.dpad {
+  position: absolute;
+  left: var(--dpad-left);
+  top: var(--dpad-top);
+  width: var(--dpad-size);
+  height: calc(var(--dpad-size) * 1.758);
+  clip-path: polygon(
+    34% 0%, 66% 0%, 66% 34%, 100% 34%,
+    100% 66%, 66% 66%, 66% 100%, 34% 100%,
+    34% 66%, 0% 66%, 0% 34%, 34% 34%
+  );
+  background: linear-gradient(180deg, #3c4048, #23262c);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45));
+}
+
+.dpad__arm {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.42);
+  font-size: 8px;
+  transition: background 80ms linear;
+}
+
+.dpad__arm.is-pressed {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.dpad__arm--up {
+  top: 0;
+  left: 33%;
+  width: 34%;
+  height: 50%;
+}
+
+.dpad__arm--down {
+  bottom: 0;
+  left: 33%;
+  width: 34%;
+  height: 50%;
+}
+
+.dpad__arm--left {
+  left: 0;
+  top: 33%;
+  width: 50%;
+  height: 34%;
+}
+
+.dpad__arm--right {
+  right: 0;
+  top: 33%;
+  width: 50%;
+  height: 34%;
+}
+
+.dpad__arrow {
+  pointer-events: none;
+}
+
+.dpad__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #2a2d34;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  pointer-events: none;
+}
+
+/* The four face buttons. */
+
+.face-buttons {
+  position: absolute;
+  left: var(--face-left);
+  top: var(--face-top);
+  width: var(--face-size);
+  height: calc(var(--face-size) * 1.758);
+}
+
+.face-button {
+  position: absolute;
+  width: 38%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #4e535c, #26292f 70%);
+  color: #b6bcc6;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  transition: transform 80ms linear, box-shadow 80ms linear;
+}
+
+.face-button.is-pressed {
+  transform: translate(-50%, calc(-50% + 1px));
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  color: var(--accent);
+}
+
+.face-button--x {
+  left: 0;
+  top: 50%;
+}
+
+.face-button--y {
+  top: 0;
+  left: 50%;
+}
+
+.face-button--a {
+  left: 100%;
+  top: 50%;
+}
+
+.face-button--b {
+  left: 50%;
+  top: 100%;
+}
+
+/* The two analog sticks. */
+
+.stick {
+  position: absolute;
+  top: var(--stick-top);
+  width: var(--stick-size);
+  height: calc(var(--stick-size) * 1.758);
+}
+
+.stick--left {
+  left: var(--stick-left-left);
+}
+
+.stick--right {
+  left: var(--stick-right-left);
+}
+
+.stick__well {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #17191d, #0c0e11);
+  box-shadow:
+    0 0 0 2px #101216,
+    0 2px 6px rgba(0, 0, 0, 0.6) inset;
+}
+
+.stick__cap {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #565b66, #24272d 72%);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  cursor: grab;
+}
+
+.stick__cap:active {
+  cursor: grabbing;
+}
+
+/* Start and select. */
+
+.menu-buttons {
+  position: absolute;
+  left: 36%;
+  top: 63%;
+  width: 28%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-button {
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #3c4048, #23262c);
+  color: #8b929d;
+  font-family: var(--font-mono);
+  font-size: 5px;
+  letter-spacing: 0.06em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.menu-button.is-pressed {
+  background: #1d2026;
+  color: var(--accent);
+}
+
+.device__brand {
+  position: absolute;
+  left: 50%;
+  bottom: 3.5%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.18);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.4em;
+}
+
+/* The back of the case. */
+
+.trigger {
+  position: absolute;
+  top: 9%;
+  width: 18%;
+  height: 22%;
+  display: grid;
+  place-items: center;
+  border-radius: 10px 10px 26px 26px;
+  background: linear-gradient(180deg, #3d414a, #202329);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  cursor: pointer;
+}
+
+/* The back face carries its own 180 degree turn, so a trigger placed on the
+ * left of the box lands on the right of the device once you flip it over.
+ * These offsets put L2 on the left of the console, where it belongs. */
+.trigger--l2 {
+  right: 13%;
+}
+
+.trigger--r2 {
+  left: 13%;
+}
+
+.trigger.is-pressed {
+  background: linear-gradient(180deg, #2c3037, #171a1e);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.trigger__label {
+  color: #79808b;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+
+.trigger.is-pressed .trigger__label {
+  color: var(--accent);
+}
+
+.battery-door {
+  position: absolute;
+  left: 22%;
+  top: 40%;
+  width: 56%;
+  height: 42%;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #26292f, #1b1e23);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+.battery-door__label {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  color: rgba(255, 255, 255, 0.16);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+}
+
+.device__label {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.14);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  line-height: 1.8;
+  letter-spacing: 0.18em;
+  text-align: center;
+}

@@ -1,0 +1,236 @@
+/* The page around the console.
+ *
+ * The console is the point, so the page stays quiet: a dark backdrop, a
+ * header, and a panel that doubles as a reference for the controls.
+ */
+
+:root {
+  --page: #14171c;
+  --page-raised: #1c2027;
+  --page-line: #2b313a;
+  --ink: #e8ecf1;
+  --ink-quiet: #9aa4b2;
+  --ink-faint: #6b7482;
+  --accent: #6ee7a8;
+  --accent-quiet: #2f6b4d;
+  --danger: #ff6b6b;
+  --radius: 10px;
+  --gap: 20px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+}
+
+.app__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--page-line);
+}
+
+.app__title {
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+}
+
+.app__tagline {
+  color: var(--ink-quiet);
+  font-size: 14px;
+}
+
+.app__actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.app__body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.app__stage {
+  flex: 1 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.app__panel {
+  flex: 0 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.button {
+  padding: 7px 14px;
+  border: 1px solid var(--page-line);
+  border-radius: var(--radius);
+  background: var(--page-raised);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.button:hover {
+  background: #242932;
+  border-color: #3a424e;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.button[aria-pressed="true"] {
+  border-color: var(--accent-quiet);
+  color: var(--accent);
+}
+
+.panel-section {
+  border: 1px solid var(--page-line);
+  border-radius: var(--radius);
+  background: var(--page-raised);
+  padding: 16px 18px;
+}
+
+.panel-section__title {
+  margin-bottom: 10px;
+  color: var(--ink-faint);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.panel-section__body {
+  color: var(--ink-quiet);
+  font-size: 14px;
+}
+
+.now-playing {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.now-playing.is-running {
+  color: var(--accent);
+}
+
+.status {
+  margin-top: 6px;
+  color: var(--danger);
+  font-size: 13px;
+  min-height: 1em;
+}
+
+.key-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.key-list dt {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.key-list dd {
+  margin: 0;
+  color: var(--ink-quiet);
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--page-line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: #10131a;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.app__footer {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--page-line);
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+
+.app__footer a {
+  color: var(--ink-quiet);
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: 20px 14px 32px;
+  }
+
+  .app__actions {
+    margin-left: 0;
+    width: 100%;
+  }
+}

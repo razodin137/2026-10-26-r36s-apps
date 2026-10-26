@@ -1,0 +1,7 @@
+{
+  "title": "Snake",
+  "author": "The R36S project",
+  "version": "1.0.0",
+  "description": "The reference cartridge. Shows how to read the D-pad, draw to the screen, and keep a save file.",
+  "tags": [ "reference", "arcade" ]
+}
